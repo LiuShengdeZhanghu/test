@@ -1,0 +1,12 @@
+重置admin用户密码
+
+进入 python manage.py shell
+from django.contrib.auth.models import User
+
+user = User.objects.get(username='admin')
+user.set_password('new_password')
+user.save()
+
+同步数据库可：
+先建立数据库，在通过  python manage.py inspectdb 反向同步
+得到models中的类
