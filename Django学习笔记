@@ -10,3 +10,10 @@ user.save()
 同步数据库可：
 先建立数据库，在通过  python manage.py inspectdb 反向同步
 得到models中的类
+
+拓展admin中的超级用户的信息
+通过  from django.contrib.auth.models import AbstractUser
+继承 AbstractUser
+把数据库中的表auth_user 、auth_user_groups 、auth_user_user_permissions复制成新的表
+然后在models中创建新的类继承AbstractUser
+再在setting中添加 字段 AUTH_USER_MODEL = "blog.User"
