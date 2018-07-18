@@ -24,3 +24,14 @@ TEMPLATES = [
 
 —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
 
+自定义标签
+from django import template
+register=template.Library()
+
+@register.filter
+def assets(value):
+    if value.__len__()>10:
+        return '%s...'%value[0:5]
+    return value
+可以使用函数来到达一些对模板变量的控制
+value就是管道符号 | 前的变量
