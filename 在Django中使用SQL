@@ -1,0 +1,3 @@
+关键字  connection  connections  transection
+在 数据库模型的 News.objects.raw(str)
+str为对应的SQL语句, 如果使用 like '%str%', 可能会报错，这个时候就使用 like'%%str%%'
