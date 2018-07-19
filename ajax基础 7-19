@@ -1,0 +1,56 @@
+Ajax工作原理
+JavaScript
+异步数据交换技术XMLHttpRequest
+XMl
+Dom
+XHTML和CSS
+
+
+XML 被设计用来传输和存储数据，其焦点是数据的内容。
+HTML 被设计用来显示数据。
+
+创建一个XMLHttpRequest对象
+request=new XMLHttpRequest()
+IE7+、Firefox、Chrome、Safari 和 Opera
+
+xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+旧版本的Internet Explorer（IE5和IE6）
+
+1.1创建XMLHttpRequest对象
+1.2请求服务器
+1.2.0 onreadystatechange
+request.onreadystatechange = function(){
+    //这里写一些代码
+    if(request.readyState==4){
+        //从服务器获取数据的代码，并做相应的处理
+        alert(request.responseText);
+    }
+}
+
+1.2.1 readyState 属性
+0 请求还没有初始化，还没有发起请求
+1 请求已经提出，在请求发出去之前
+2 请求已经发出，通常可以从响应得到头部信息
+3 服务器正在处理中
+4 服务器已经请求完成
+每个状态的改变都要调用 onreadystatechange对应的函数
+
+1.2.2 responseText 属性，用来获取从服务器返回的数据
+
+把请求发送到服务器，需要调用下面两个方法
+1.2.3 open() 需要三个参数
+GET/POST  #传递的方法
+URL       #服务器脚本的URL
+异步处理的标志
+
+1.2.4 send() 
+
+request.open("GET","Text.txt",true);
+request.onreadystatechange = function(){
+    //这里写一些代码
+    if(request.readyState==4){
+        //从服务器获取数据的代码，并做相应的处理
+        alert(request.responseText);
+    }
+}
+request.send(null)
