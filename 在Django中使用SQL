@@ -1,3 +1,14 @@
 关键字  connection  connections  transection
 在 数据库模型的 News.objects.raw(str)
 str为对应的SQL语句, 如果使用 like '%str%', 可能会报错，这个时候就使用 like'%%str%%'
+在这种情况下进行查询时必须包括主键进行查询
+
+—— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+
+通过
+cursor=connection.cursor()
+sql="SELECT * FROM news WHERE  news_title LIKE '%%质量%%' OR news_body LIKE '%%改革%%';"
+cursor.execute(sql)
+new_list=cursor.fetchall()
+如果是查询语句， 返回的是一个元组
+    
