@@ -1,0 +1,48 @@
+查询集 是惰性执行的 —— 创建查询集不会带来任何数据库的访问。你可以将过滤器保持一整天，
+直到查询集 需要求值时，Django 才会真正运行这个查询。看下这个例子：
+>>> q = Entry.objects.filter(headline__startswith="What")
+>>> q = q.filter(pub_date__lte=datetime.date.today())
+>>> q = q.exclude(body_text__icontains="food")
+>>> print(q)
+虽然它看上去有三次数据库访问，但事实上只有在最后一行（print(q)）时才访问一次数据库。
+一般来说，只有在“请求”查询集 的结果时才会到数据库中去获取它们。当你确实需要结果时，
+查询集 通过访问数据库来求值。 关于求值发生的准确时间，参见何时计算查询集。
+
+可以使用Python 的切片语法来限制查询集记录的数目 。它等同于SQL 的LIMIT 和OFFSET 子句。
+例如，下面的语句返回前面5 个对象(LIMIT 5)：
+>>> Entry.objects.all()[:5]
+下面这条语句返回第6 至第10 个对象(OFFSET 5 LIMIT 5)：
+>>> Entry.objects.all()[5:10]
+不支持负的索引（例如Entry.objects.all()[-1]）。
+通常，查询集 的切片返回一个新的查询集 —— 它不会执行查询。有一个例外，是如果你使用Python 切片语法中"step"参数。
+例如，下面的语句将返回前10 个对象中每隔2个对象，它将真实执行查询：
+>>> Entry.objects.all()[:10:2]
+
+—— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——  ——
+
+你遍历queryset时，所有匹配的记录会从数据库获取，然后转换成Django的model。这被称为执行（evaluation）。
+这些model会保存在queryset内置的cache中，这样如果你再次遍历这个queryset，你不需要重复运行通用的查询。
+例如，下面的代码只会执行一次数据库查询
+pet_set = Pet.objects.filter(species="Dog")
+# The query is executed and cached.
+for pet in pet_set:
+    print(pet.first_name)
+# The cache is used for subsequent iteration.
+for pet in pet_set:
+    print(pet.last_name)
+
+if语句会触发queryset的执行
+restaurant_set = Restaurant.objects.filter(cuisine="Indian")
+# `if`语句会触发queryset的执行。
+if restaurant_set:
+    # 遍历时用的是cache中的数据
+    for restaurant in restaurant_set:
+        print(restaurant.name)
+有时候，你也许只想知道是否有数据存在，而不需要遍历所有的数据。这种情况，简单的使用if语句进行
+判断也会完全执行整个queryset并且把数据放入cache，虽然你并不需要这些数据！
+
+tree_set = Tree.objects.filter(type="deciduous")
+# `exists()`的检查可以避免数据放入queryset的cache。
+if tree_set.exists():
+    # 没有数据从数据库获取，从而节省了带宽和内存
+    print("There are still hardwood trees in the world!")
