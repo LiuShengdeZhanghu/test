@@ -45,3 +45,39 @@ True
 1
 >>> pmc.get('key')
 >>>
+
+
+—— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+文件缓存
+>>> from django.core.cache import cache
+>>> cache.add('key','value')
+True
+>>> cache.add('keyv1','valuev1',version='v1')    #指定版本
+True
+>>> cache.add('keyv2','valuev2',version='v2')
+True
+>>> cache.add('key','val')
+False
+>>> cache.get('key')
+>>> cache.set('key','value_set')
+>>> cache.get('key')
+'value_set'
+>>> cache.set('keyv1','valuev1_set',version='v1')
+>>> cache.get('keyv1')
+
+>>> cache.has_key('key')
+True
+>>> cache.has_key('keyv1',version='v1')   #当key与value都正确的时候返回True
+True>>> cache._list_cache_files()
+['F:\\Djangoblog\\cache\\0e05f922806bcff62430a9e40932ca0f.djcache', 'F:\\Djangoblog\\cache\\489087976349f36d5c25c049476d6176.djcache', 'F:\
+\Djangoblog\\cache\\9ca9103a2324d8a789a488d8299ffa83.djcache']
+#列出缓存文件
+>>> cache.clear()    #清空缓存
+>>> cache._list_cache_files()
+[]
+
+—— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+database缓存
+
+
+
