@@ -1,0 +1,47 @@
+有多种配置方式
+文件配置
+CACHES = {
+    'default':{
+        #以什么方式缓存
+        #'BACKEND':"django.core.cache.backends.filebased.FileBasedCache",   #文件缓存
+        'BACKEND':"F:/foo/bar",   #文件地址必须为绝对地址，会议root权限启动，目录必须存在且web服务器的用户对该文件有读写权限
+        
+    }
+}
+
+
+#设置缓存
+CACHES = {
+    'default':{
+        #以什么方式缓存
+        #'BACKEND':"django.core.cache.backends.memcached.MemcachedCache",   #内存缓存
+        'BACKEND':"django.core.cache.backends.locmem.LocMemCache",   #内存缓存
+        #缓存的目标 IP地址和端口
+        #'LOCATION':'127.0.0.1:8000',
+        'LOCATION':'unique-snowflake',
+    }
+}
+
+>>> from django.core.cache import cache
+>>> cache.set('mey_key','hello',25)
+>>> cache.get('mey_key')
+
+
+>>> import memcache
+>>> pmc = memcache.Client(['127.0.0.1:11211'])
+>>> pmc.set('key','value')
+True
+>>> pmc.get('key')
+'value'
+>>> 
+>>> pmc.set('key1','3')
+True
+>>> pmc.incr('key1')
+4
+>>> pmc.decr('key1')
+3
+>>>
+>>> pmc.delete('key')
+1
+>>> pmc.get('key')
+>>>
