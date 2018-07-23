@@ -5,10 +5,34 @@ CACHES = {
         #以什么方式缓存
         #'BACKEND':"django.core.cache.backends.filebased.FileBasedCache",   #文件缓存
         'BACKEND':"F:/foo/bar",   #文件地址必须为绝对地址，会议root权限启动，目录必须存在且web服务器的用户对该文件有读写权限
-        
     }
 }
 
+数据库缓存
+CACHES = {
+    'default':{
+        #以什么方式缓存
+        #'BACKEND':"django.core.cache.backends.db.DatabaseCache",   #数据库缓存
+        'BACKEND':"my_cache_table",   #要使用python manage.py createcachetable
+    },        #可以分类创建两个表
+    'apps':{
+        'BACKEND':"django.core.cache.backends.db.DatabaseCache",
+        'LOCATION':"apps_cache_table"
+    }
+}
+
+locmem缓存（默认的缓存）
+CACHES = {
+    'default':{
+        #以什么方式缓存
+        #'BACKEND':"django.core.cache.backends.locmem.LocMemCache",   #文件缓存
+        'BACKEND':"unique-snowflake",   #文件地址必须为绝对地址，会议root权限启动，目录必须存在且web服务器的用户对该文件有读写权限
+    },
+    'apps':{  #可以指定多个
+        'BACKEND':"django.core.cache.backends.locmem.LocMemCache",
+        'LOCATION':''
+    }
+}
 
 #设置缓存
 CACHES = {
@@ -78,6 +102,42 @@ True>>> cache._list_cache_files()
 
 —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
 database缓存
+
+>>> from django.core.cache import caches
+>>> caches['default']
+<django.core.cache.backends.db.DatabaseCache object at 0x0000027996D1AA90>
+>>> caches['default'].set('key_default','value_default')
+>>> caches['default'].get('key_default')
+'value_default'
+>>> caches['apps']      #引用不同的数据表
+<django.core.cache.backends.db.DatabaseCache object at 0x0000027996D3BF98>
+>>> caches['apps'].set('key_apps','value_apps')
+>>> caches['apps'].get('key_apps')
+'value_apps'
+>>> from django.core.cache import cache          #当以这种方式导入的时候，只能使用default
+>>> cache.get('key_default')
+'value_default'
+>>> cache.get('key_apps')                     #就不能使用其他表中的缓存
+
+—— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+locmem缓存
+
+>>> from django.core.cache import cache     #这个情况使用default对应的缓存
+>>> cache.set('ke','value')
+>>> cache.get('ke')
+'value'
+
+
+>>> from django.core.cache import caches    #可以使用多个缓存
+>>> de_c=caches['default']
+>>> apps_c=caches['apps']
+>>> de_c.set('k1','v1')
+>>> apps_c.set('k2','v2')
+>>> de_c.get('k1')
+'v1'
+>>> apps_c.get('k2')
+'v2'
+
 
 
 
