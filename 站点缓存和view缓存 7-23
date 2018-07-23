@@ -1,0 +1,8 @@
+站点缓存的配置
+MIDDLEWARE = [
+    'django.middleware.cache.UpdataCacheMiddleware',   #必须放在第一个
+    'django.middleware.cache.FetchFromCacheMiddleware',
+]
+参数
+CACHES_MIDDLEWARE_SECONDS = 3600
+CACHES_MIDDLEWARE_KEY_PREFIX = "SiteCache"
