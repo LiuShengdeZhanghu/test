@@ -6,3 +6,36 @@ MIDDLEWARE = [
 参数
 CACHES_MIDDLEWARE_SECONDS = 3600
 CACHES_MIDDLEWARE_KEY_PREFIX = "SiteCache"
+
+—— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+
+Template片段缓存
+缓存可能使你修改了某个模板的值，但是页面不会发生改变，这个时候删除缓存就行
+{% load cache %}  #至少需要两个变量 timeout缓存时间（秒） name 缓存片段名，默认使用default中的缓存后端，可以通过using指定
+{% cache 500 btn using='apps' %}
+<button onclick="dd()" id="tbn" class="btn" >点击</button>
+{% endcache %}
+
+
+—— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— —— ——
+>>> from django.core.cache import cache
+>>> from django.core.cache import caches
+>>> cache ==caches['default']
+True
+>>> cache.set('k1','va1')
+>>> cache.get('k1')
+'va1'
+>>> cache.add('k1','va2')
+False
+>>> cache.add('k2','va2')
+True
+>>> cache.get_many(['k1','k2'])
+{'k1': 'va1', 'k2': 'va2'}
+>>> cache.set_many({'k3':'va3','k4':'va4'})
+[]
+>>> cache.get('k3')
+'va3'
+>>> cache.delete('k3')
+>>> cache.has_key('k3')
+False
+>>> cache.clear()
