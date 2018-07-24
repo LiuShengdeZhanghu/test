@@ -1,0 +1,15 @@
+  1、修改时区、语言
+  2、关闭DEBUG和TEMPLATE_DEBUG
+    DEBUG的开启会使用更多的资源
+    任何404、500等错误都会返回特殊页面
+    异常和脚本错误都会显示具体源代码，必须隐藏
+
+if socket.gethostname() == "liusheng1":
+    #如果是本地访问
+    DEBUG = True #是否打开网网站的调试信息
+    TEMPLATE_DEBUG = True
+else:
+    DEBUG = False
+    TEMPLATE_DEBUG = False 
+
+ALLOWED_HOSTS = ['127.0.0.1']
