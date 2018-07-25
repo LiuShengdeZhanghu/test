@@ -13,3 +13,25 @@ else:
     TEMPLATE_DEBUG = False 
 
 ALLOWED_HOSTS = ['127.0.0.1']
+
+
+配置错误模板
+404.HTML 页面没有找到
+500.HTML 内部错误
+403.HTML 禁止访问
+400.HTML 页面过期或者删除
+
+在url.py中进行设置
+只有当不是本地访问的时候才会这样
+handler404 = 'blog.views.Page_not_found'
+#发生500错误时
+handler500 = 'blog.views.Neibu_er'
+
+添加debug_toolbar
+pip install django-debug-toolbar
+然后在debug-toolbar 自身的setting文件中修改
+#'JQUERY_URL': '//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js',
+'JQUERY_URL': '//cdn.botcss.com/jquery/2.1.4/jquery.min.js',
+再在MIDDLEWARE 中添加
+'debug_toolbar.middleware.DebugToolbarMiddleware',
+且只有在debug模式下才会开启
