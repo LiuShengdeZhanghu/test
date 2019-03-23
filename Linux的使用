@@ -1,1 +1,7 @@
 which python3 可以查找这个python的目录所在
+创建软链接
+cd /usr/bin/
+rm python3
+ln -s python3.6 python3
+rm python
+ln -s python3.6 python
