@@ -1,0 +1,6 @@
+git clone 后面跟上github的链接可以下载（要在git中现切换到指定目录中）
+git status  查看状态
+git add . 把文件提交到寄存区中
+git reset  恢复上一步操作
+在git的clone目录下使用.gitignore文件可以忽略不需要上传的文件
+git commit -m '描述'  可以提交项目到GitHub
