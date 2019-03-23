@@ -7,3 +7,12 @@ rm python
 ln -s python3.6 python
  apt-get install python3-pip 安装pip
  输入python 或者 pip再输入tab键一次或者两次可以查看有哪些版本
+ pip3 install --upgrade pip  更新pip
+ 
+ pip3 install virtualenv
+ 安装虚拟的包
+ 创建虚拟环境
+ virtualenv mysite_env python=python3.6
+ 
+ 激活虚拟环境
+ source bin/activate
