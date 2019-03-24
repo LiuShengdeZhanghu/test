@@ -1,6 +1,7 @@
 which python3 可以查找这个python的目录所在
 创建软链接
 cd /usr/bin/
+apt autoremove python3.5 可以使用者个来选择是否删除python的其他版本
 rm python3
 ln -s python3.6 python3
 rm python
@@ -15,4 +16,12 @@ ln -s python3.6 python
  virtualenv mysite_env python=python3.6
  
  激活虚拟环境
- source bin/activate
+source bin/activate
+退出虚拟环境
+deactivate   
+
+安装mysql
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb
+dpkg -i mysql-apt-config_0.8.10-1-all.deb
+apt-get update
+apt-get install mysql-server
