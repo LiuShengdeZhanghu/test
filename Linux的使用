@@ -25,3 +25,9 @@ wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb
 dpkg -i mysql-apt-config_0.8.10-1-all.deb
 apt-get update
 apt-get install mysql-server
+
+导出本地mysql的数据
+mysqldump -uroot anliku -p > data.sql
+上传
+进入服务器mysql，use anliku导入数据
+source data.sql;
