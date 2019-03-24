@@ -31,3 +31,9 @@ mysqldump -uroot anliku -p > data.sql
 上传
 进入服务器mysql，use anliku导入数据
 source data.sql;
+
+安装mysqlclient
+先安装libmysqlclient
+wget https://dev.mysql.com/get/Downloads/MySQL-8.0/libmysqlclient-dev_8.0.15-1ubuntu16.04_amd64.deb
+dpkg -i libmysqlclient-dev_8.0.15-1ubuntu16.04_amd64.deb
+apt-get install libmysqlclient-dev
