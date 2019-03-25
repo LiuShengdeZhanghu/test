@@ -48,4 +48,34 @@ python manage.py runserver
 uwsgi --chdir /home/lajifensha --home /home/mysite_env/ --http :80 --module lajifensha.wsgi:application
 安装nginx
 apt-get install nginx
+配置nginx
+在/etc/nginx/sites-available下配置 mysite.conf
+参照https://uwsgi-docs-zh.readthedocs.io/zh_CN/latest/tutorials/Django_and_nginx.html
+保存后创建软链接
+ln -s /etc/sites-available/mysite.conf /etc/nginx/sites-enabled/mysite.conf
 
+在/home下面创建一个mysite_uwsgi文件夹
+在/home/mysite_uwsgi/下创建mysite.ini
+写入
+[uwsgi]
+chdir = /home/lajifensha
+home = /home/mysite_env
+module = lajifensha.wsgi:application
+
+master = True
+processes = 4
+harakiri = 60
+max-requests = 5000
+
+socket = 127.0.0.1:8001
+uid = 1000
+gid = 2000
+pidfile = /home/mysite_uwsgi/master.pid
+daemonize = /home/mysite_uwsgi/mysite.log
+vacuum = True
+保存
+uwsgi --ini /home/mysite_uwsgi/mysite.ini
+启动
+
+nginx -t 查看nginx的状况
+service nginx restart 重启nginx
