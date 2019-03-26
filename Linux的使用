@@ -79,3 +79,5 @@ uwsgi --ini /home/mysite_uwsgi/mysite.ini
 
 nginx -t 查看nginx的状况
 service nginx restart 重启nginx
+
+直接在/etc/nginx/nginx.conf中修改
