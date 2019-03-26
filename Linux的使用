@@ -76,6 +76,10 @@ vacuum = True
 保存
 uwsgi --ini /home/mysite_uwsgi/mysite.ini
 启动
+重新加载
+uwsgi --reload /home/mysite_uwsgi/master.pid
+
+uwsgi --stop /home/mysite_uwsgi/master.pid
 
 nginx -t 查看nginx的状况
 service nginx restart 重启nginx
