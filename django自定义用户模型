@@ -1,0 +1,7 @@
+参考：https://docs.djangoproject.com/en/2.1/topics/auth/customizing/ 在页面搜索baseuser找到a full example
+
+新建user app 创建model.py 应用BaseUserManager, AbstractBaseUser继承然后自定义模板，配置admin.py
+
+需要注意事项：
+1、最好在项目开始前期就把User模型定义好，如果在中后期才采用这种方式，在创建User数据库表的时候需要把整个数据库格式化才能创建成功
+2、这种方法自定义程度高
