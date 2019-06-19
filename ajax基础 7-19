@@ -54,3 +54,6 @@ request.onreadystatechange = function(){
     }
 }
 request.send(null)
+
+实习心得：
+django通过orm查询出来的数据可以通过u_dict = json.dumps(list(time_map), cls=DjangoJSONEncoder)转换为json格式的数据
