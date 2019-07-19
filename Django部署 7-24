@@ -35,3 +35,5 @@ pip install django-debug-toolbar
 再在MIDDLEWARE 中添加
 'debug_toolbar.middleware.DebugToolbarMiddleware',
 且只有在debug模式下才会开启
+
+nohup python manage.py runserver 0.0.0.0:80 >> /opt/server.log &
