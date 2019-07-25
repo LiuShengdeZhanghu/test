@@ -66,7 +66,7 @@ class SortDemo():
         while gap > 0 :
             print(range(gap,lens))
             for i in range(gap,lens):
-                curNum, PreIndex = L[i], i - gap  # curNum 保存当前待插入的数
+                curNum, PreIndex = L[i], i - gap  # curNum 保存当前待插入的数,gap是补长
                 while PreIndex >= 0 and curNum < L[PreIndex]:  # 将比 curNum 大的元素向后移动
                     L[PreIndex + gap] = L[PreIndex]
                     PreIndex -= gap
